@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# Download Eclipse and plugins.
+wget -O "/tmp/eclipse.tar.gz" "http://ftp.snt.utwente.nl/pub/software/eclipse//technology/epp/downloads/release/neon/1a/eclipse-java-neon-1a-linux-gtk-x86_64.tar.gz"
+wget -O "/tmp/cdt-plugin.zip" "http://ftp.snt.utwente.nl/pub/software/eclipse/tools/cdt/releases/9.1/cdt-9.1.0.zip"
+wget -O "/tmp/arm-plugin.zip" "https://github.com/gnuarmeclipse/plug-ins/releases/download/v3.1.1-201606210758/ilg.gnuarmeclipse.repository-3.1.1-201606210758.zip"
+
+# Extract them all.
+tar xvf "/tmp/eclipse.tar.gz" -C "/opt"
+unzip "/tmp/cdt-plugin.zip" -d "/tmp/cdt-plugin"
+unzip "/tmp/arm-plugin.zip" -d "/tmp/arm-plugin"
+
+# Features have to be extracted seperately.
+(
+    cd "/tmp/cdt-plugin/features"
+    find -name '*.jar' -exec sh -c 'unzip -d "${1%.*}" "$1"' _ {} \;
+    rm *.jar
+)
+(
+    cd "/tmp/arm-plugin/features"
+    find -name '*.jar' -exec sh -c 'unzip -d "${1%.*}" "$1"' _ {} \;
+    rm *.jar
+)
+
+# Move plugins to proriate directories.
+mv "/tmp/cdt-plugin/plugins/"* "/opt/eclipse/plugins"
+mv "/tmp/arm-plugin/plugins/"* "/opt/eclipse/plugins"
+mv "/tmp/cdt-plugin/features/"* "/opt/eclipse/features"
+mv "/tmp/arm-plugin/features/"* "/opt/eclipse/features"
+
+# Create launcher icon.
+cat > "/usr/share/applications/eclipse.desktop" <<-EOD
+[Desktop Entry]
+Type=Application
+Name=Eclipse
+Comment=Eclipse Integrated Development Environment
+Icon=/opt/eclipse/icon.xpm
+Exec=/opt/eclipse/eclipse
+Terminal=false
+Categories=Development;IDE;Java;
+StartupWMClass=Eclipse
+EOD
+chmod +x /usr/share/applications/eclipse.desktop

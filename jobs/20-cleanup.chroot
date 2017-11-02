@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Remove all packages that are not needed anymore.
+apt-get autoremove -y
+apt-get autoclean -y
+apt-get clean -y
+
+# Clear /tmp directory.
+rm -rf /tmp/*

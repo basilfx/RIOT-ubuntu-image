@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Fix gdbinit
+cat > "/etc/skel/.gdbinit" <<-EOD
+set auto-load safe-path /
+EOD

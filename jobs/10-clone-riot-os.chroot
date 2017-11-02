@@ -1,0 +1,4 @@
+#!/bin/bash
+
+mkdir -p "/opt/RIOT/"
+git clone "https://github.com/RIOT-OS/RIOT" "/opt/RIOT"

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Reconfigure launcher icons.
+cat > "/usr/share/glib-2.0/schemas/10_local-unity-launcher.gschema.override" <<-EOD
+[com.canonical.Unity.Launcher]
+favorites=['unity://desktop-icon', 'application://org.gnome.Nautilus.desktop', 'application://firefox.desktop', 'application://eclipse.desktop', 'application://gnome-terminal.desktop', 'unity://running-apps', 'unity://expo-icon', 'unity://devices']
+EOD
+glib-compile-schemas /usr/share/glib-2.0/schemas/

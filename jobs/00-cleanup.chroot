@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Remove default desktop.
+rm -f /etc/skel/*
+
+# Remove packages.
+apt-get remove --purge gnome-games -y
+apt-get remove --purge libreoffice* -y
+apt-get remove --purge unity-lens-shopping -y
+apt-get remove --purge unity-lens-applications -y
