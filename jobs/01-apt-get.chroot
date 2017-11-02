@@ -10,6 +10,7 @@ apt-get upgrade -y
 
 # Install packages.
 apt-get install build-essential -y
+apt-get install libc6-dev-i386 -y
 apt-get install vim -y
 apt-get install subversion -y
 apt-get install git -y
@@ -21,3 +22,4 @@ apt-get install python -y
 apt-get install python-dev -y
 apt-get install python-pip -y
 apt-get install openocd -y
+apt-get install bridge-utils -y
